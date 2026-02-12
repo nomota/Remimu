@@ -171,7 +171,7 @@ typedef struct _RegexToken {
   int16_t pair_offset; // from ( or ), offset in token list to matching paren. TODO: move into mask maybe
 } RegexToken;
 
-static int nibble_hex_to_bin(char hex, uint8_t *bin)
+static int remimu_nibble_hex_to_bin(char hex, uint8_t *bin)
 {
   if (hex >= '0' && hex <= '9')
   {
@@ -398,9 +398,9 @@ int regex_parse(const char * pattern, RegexToken * tokens, int16_t * token_count
           if (pattern[i+1] == 0 || pattern[i+2] == 0)
             return -1; // too-short hex pattern
           uint8_t n0, n1;
-          if (nibble_hex_to_bin(pattern[i+1], &n0))
+          if (remimu_nibble_hex_to_bin(pattern[i+1], &n0))
             return -1; // invalid hex
-          if (nibble_hex_to_bin(pattern[i+2], &n1))
+          if (remimu_nibble_hex_to_bin(pattern[i+2], &n1))
             return -1; // invalid hex
           _REGEX_SET_MASK((n0 << 4) | n1);
           i += 2;
@@ -613,9 +613,9 @@ int regex_parse(const char * pattern, RegexToken * tokens, int16_t * token_count
           if (pattern[i+1] == 0 || pattern[i+2] == 0)
             return -1; // too-short hex pattern
           uint8_t n0, n1;
-          if (nibble_hex_to_bin(pattern[i+1], &n0))
+          if (remimu_nibble_hex_to_bin(pattern[i+1], &n0))
             return -1; // invalid hex
-          if (nibble_hex_to_bin(pattern[i+2], &n1))
+          if (remimu_nibble_hex_to_bin(pattern[i+2], &n1))
             return -1; // invalid hex
           esc_c = (n0 << 4) | n1;
           i += 2;
